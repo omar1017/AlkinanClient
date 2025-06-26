@@ -1,0 +1,54 @@
+<form [formGroup]="productForm" *ngIf="!isLoading">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr class="bg-dark text-white">
+          <th>Name</th>
+          <th>Sientific Name</th>
+          <th>Company Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody formArrayName="products">
+        <ng-container *ngIf="products.controls.length > 0; else noProducts">
+          <tr *ngFor="let product of products.controls; let i = index" [formGroupName]="i">
+            <td>
+              <input type="text" class="form-control" formControlName="name" placeholder="Enter product name" />
+            </td>
+
+            <td>
+              <input type="text" class="form-control" formControlName="sName" placeholder="Enter product name" />
+            </td>
+            
+            <td>
+              <input type="text" class="form-control" formControlName="companyName" placeholder="Enter company name" />
+            </td>
+            <td>
+              <input type="text" class="form-control" formControlName="description" placeholder="Enter description" />
+            </td>
+            <td>
+              <input type="number" class="form-control" formControlName="price" placeholder="Enter price" />
+            </td>
+            
+            <td>
+                <app-action
+                   (update)="openEditPatientDialog(i,product.value)"
+                   (delete)="deleteProduct(i)"
+                >
+ 
+                </app-action>
+               </td>
+             </tr>
+           </ng-container>
+         </tbody>
+ 
+         <ng-template #noProducts>
+           <tr>
+             <td colspan="6" class="text-center text-muted">
+               No products found. Add new product using the button below.
+             </td>
+           </tr>
+         </ng-template>
+       </table>
+ </form>

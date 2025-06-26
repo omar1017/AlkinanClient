@@ -1,0 +1,105 @@
+
+<div id="main">
+  <nav class="navbar bg-body-tertiary">
+    <div class="container-fluid px-5 py-1">
+      <div class="d-flex" role="search">
+          <app-filter 
+          [options]="options"
+          (filter)="loadCarts(pageNumber,pageSize,$event.text,$event.option)"
+          ></app-filter>
+      </div>
+      <button class="btn btn-dark" (click)="onLogout()">Logout</button>
+    </div>
+  </nav>
+  <div class="mt-5 p-5">
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Orders</h2>
+    <hr class="mb-4">
+
+    <app-loading [isLoading]="isLoading"></app-loading>
+
+    <table class="table table-bordered table-hover" *ngIf="carts">
+        <ng-container *ngFor="let cart of carts; let i = index">
+            <thead class="table-dark text-white">
+                <tr>
+                    <th>#</th>
+                    <th>Customer Name</th>
+                    <th>Pharma Name</th>
+                    <th>Address</th>
+                    <th>WhatsApp Phone</th>
+                    <th>Order Date</th>
+                    <th>Order Status</th> <!-- إضافة عمود لحالة الطلب -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- صف بيانات العميل -->
+                <tr class="table-primary border-top">
+                    <td>{{ i + 1 }}</td>
+                    <td class="fw-bold">{{ cart.customer.name }}</td>
+                    <td>{{ cart.customer.pharmaName }}</td>
+                    <td>{{ cart.customer.address }}</td>
+                    <td class="fw-bold text-primary">{{ cart.customer.phoneNumber }}</td>
+                    <td>{{ cart.dateCreated }}</td>
+                    <td class="text-center">
+                        <!-- زر لتغيير حالة الطلب -->
+                        <button class="btn btn-light" (click)="markAsFulfilled(cart.cartId.value)" disabled>
+                            <span *ngIf="!cart.isFulfilled">⬜</span>
+                            <span *ngIf="cart.isFulfilled">✔</span> <!-- تغيير إلى صح عند التلبية -->
+                        </button>
+                    </td>
+                </tr>
+
+                <!-- صف بيانات المنتجات -->
+                <tr>
+                    <td colspan="7" class="p-0">
+                        <table class="table table-sm table-bordered m-0">
+                            <thead class="table-danger text-white">
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Company Name</th>
+                                    <th>Supplier</th>
+                                    <th>Private Price</th>
+                                    <th>Public Price</th>
+                                    <th>Quantity</th>
+                                    <th>Product Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-light">
+                                <tr *ngFor="let product of cart.products">
+                                    <td>{{ product.product.productName }}</td>
+                                    <td>{{ product.product.companyName }}</td>
+                                    <td>{{ product.product.supplier }}</td>
+                                    <td>{{ product.product.price }}$</td>
+                                    <td>{{product.product.publicPrice}}$</td>
+                                    <td>{{ product.quantity }}</td>
+                                    <td class="text-center">
+                                        <!-- زر لتغيير حالة الطلب -->
+                                        <button class="btn btn-light" (click)="markAsFulfilled({cartId:cart.cartId.value, lineItemId: product.lineItemId.value})">
+                                            <span *ngIf="!product.isFulfilled">⬜</span>
+                                            <span *ngIf="product.isFulfilled">✔</span> <!-- تغيير إلى صح عند التلبية -->
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+
+                <!-- فاصل بين الطلبات -->
+                <tr class="table-secondary">
+                    <td colspan="7" class="text-center fw-bold">End of Order</td>
+                </tr>
+            </tbody>
+        </ng-container>
+    </table>
+
+    <app-pagenation
+        [totalPages]="totalPages"
+        [pageNumber]="pageNumber"
+        (prevPage)="previousPage()"
+        (nextPage)="nextPage()"
+    ></app-pagenation>
+</div>
+</div>
+</div>

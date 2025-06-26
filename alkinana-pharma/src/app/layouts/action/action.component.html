@@ -1,0 +1,13 @@
+<div class="d-flex flex-row gap-2">
+    <button type="button" class="btn btn-primary btn-sm" (click)="onUpdate()" >
+      Edit
+    </button>
+    <button type="button" class="btn btn-danger btn-sm" (click)="onDelete()">
+      Delete
+    </button>
+    <button class="btn btn-light" (click)="onActive()" [appHideIfClaimsNotMet]="claimReq.adminOnly">
+      <span *ngIf="!isActive">⬜</span>
+      <span *ngIf="isActive">✔</span> <!-- تغيير إلى صح عند التلبية -->
+  </button>
+    
+</div>

@@ -1,0 +1,42 @@
+<div class="mb-4 h2 text-success">
+    Login
+</div>
+<div>
+    Don't have an account?
+    <a routerLink="/signup" class="text-decoration-none fw-medium text-success d-inlin-block" >Sign up</a>
+</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  
+
+     <!-- Email -->
+     <div class="mb-3">
+        <input class="form-control bg-body-secondary" placeholder="Email" formControlName="email">
+        <div class="error-feedback" *ngIf="hasDisplayableError('email')">
+            <div *ngIf="form.controls['email'].hasError('required')">
+                Email is required.
+            </div>
+            <div *ngIf="form.controls['email'].hasError('email')">
+                Please enter a valid email.
+            </div>
+        </div>
+    </div>
+
+
+   
+
+     <!-- Password -->
+     <div class="mb-3">
+        <input class="form-control bg-body-secondary" placeholder="Password" type="password" formControlName="password">
+        <div class="error-feedback" *ngIf="hasDisplayableError('password') && form.controls['password'].hasError('required')">
+            Password is required.
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="mt-4">
+        <button type="submit" class="btn btn-success w-100 rounded-3" [disabled]="form.invalid">
+            Sign in
+        </button>
+    </div>
+</form>
+

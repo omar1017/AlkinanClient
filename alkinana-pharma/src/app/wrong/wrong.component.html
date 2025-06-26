@@ -1,0 +1,30 @@
+<div class="modal-dialog modal-lg modal-dialog-centered">
+  <div class="modal-content">
+    
+    <div class="modal-header bg-danger text-white d-flex justify-content-between">
+      <button type="button" class="btn-close order-1" (click)="bsModalRef.hide()"></button>
+      <h5 class="modal-title order-2 flex-grow-1 text-end">تحذيرات</h5>
+    </div>
+
+    <div class="modal-body overflow-auto" dir="rtl">
+      <section class="py-4">
+        <div class="container">
+          <div class="row align-items-center">
+            <div >
+              <img class="img-thumbnail"  [attr.src]="imageUrlWrong" alt="..." />
+            </div>
+            <div >
+              <h1 class="h4 fw-bold">{{productName}}</h1>
+              <p class="lead">{{productWrong}}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="modal-footer" dir="rtl">
+      <button type="button" class="btn btn-secondary" (click)="bsModalRef.hide()">إغلاق</button>
+    </div>
+
+  </div>
+</div>

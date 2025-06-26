@@ -1,0 +1,12 @@
+<div class="d-flex align-items-center gap-2">
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="searchText"
+      placeholder="Enter search term"
+    />
+    <select class="form-select" [(ngModel)]="selectedOption">
+      <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+    </select>
+    <button class="btn btn-primary" (click)="applyFilter()">Search</button>
+  </div>

@@ -1,0 +1,125 @@
+ <!-- Navigation-->
+ <nav class="navbar navbar-expand-lg navbar-light bg-light" dir="rtl" >
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="#!">متجر الكنانة للمنتجات الطبية</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+              <li>
+                <button class="btn btn-outline-dark" type="button" routerLink="/signin">
+                  <i class="bi-cart-fill me-1"></i>
+                  تسجيل الدخول
+                </button>
+              </li> 
+            </ul>
+           
+            <form class="d-flex">
+              <button class="btn btn-outline-dark" type="button" routerLink="/cart">
+                <i class="bi-cart-fill me-1"></i>
+                السلة
+                <span class="badge bg-dark text-white ms-1 rounded-pill">{{ cartCount }}</span>
+              </button>
+            </form>
+        </div>
+    </div>
+</nav><div class="container-fluid px-5 py-1">
+              <div class="d-flex" role="search">
+                  <app-filter 
+                  [options]="options"
+                  (filter)="loadProducts(pageNumber,pageSize,$event.text,$event.option)"
+                  ></app-filter>
+              </div>
+            </div>
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">مستودع الكنانة فارما</h1>
+            <p class="lead fw-normal text-white-50 mb-0">يمكنك طلب المنتجات عن طريق الضغط على إضافة الى السلة ومن ثم الضغط على أيقونة السلة في أعلى الصفحة التي تستطيع من خلالها تحديد الكميات المطلوبة وتأكيد الطلبية وبعدها سيتواصل معك مالك المستودع لتأمين الطلبية</p>
+        </div>
+    </div>
+</header>
+<app-pagenation
+    [totalPages]="totalPages"
+    [pageNumber]="pageNumber"
+    (prevPage)="previousPage()"
+    (nextPage)="nextPage()"
+    ></app-pagenation>
+
+    <app-loading
+    [isLoading]="isLoading"
+    ></app-loading>
+
+<!-- Section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+      <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        <div *ngFor="let product of products" class="col mb-5">
+          <div class="card h-100">
+            <!-- Sale badge -->
+            <div *ngIf="product.onSale" class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+              Sale
+            </div>
+
+            <!-- Product image -->
+            <img 
+            class="card-img-top img-fluid object-fit-cover" 
+            style="height: 200px;"  
+            [src]="product.productImage.url" 
+            [alt]="product.productName" />
+
+            <!-- Product details -->
+            <div class="card-body p-4">
+              <div class="text-center">
+                <h5 class="fw-bolder">{{ product.productName }}</h5>
+                <span class="text-muted small">{{ product.sName }}</span>
+                <span class="text-muted small">{{ product.companyName }}</span>
+                <br>
+                <span>{{ product.description }}</span>
+                <br>
+                <span>${{product.publicPrice}}</span>
+              </div>
+            </div>
+            <!-- Product actions -->
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+              <div class="d-flex align-items-center">
+                <button [disabled]="!product.warning"
+                        class="btn btn-danger text-white me-auto fixed-btn"
+                        (click)="openWrong(product)">
+                  <i class="bi bi-exclamation-triangle"></i>
+                  تحذيرات
+                </button>
+                <button class="btn btn-outline-dark fixed-btn"
+                        [class.ms-auto]="!product.notes"
+                        (click)="addToCart(product)">
+                  <i class="bi bi-cart-plus"></i>
+                  إضافة إلى السلة
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <app-pagenation
+    [totalPages]="totalPages"
+    [pageNumber]="pageNumber"
+    (prevPage)="previousPage()"
+    (nextPage)="nextPage()"
+    ></app-pagenation>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+  <div class="container text-center text-white">
+    <p class="m-0">&copy; Alkinana Pharma Store 2025</p>
+    <p class="mt-2">
+      <a href="https://wa.me/963980685320" class="text-white text-decoration-none me-3" target="_blank">
+        <i class="fab fa-whatsapp"></i> +963 980 685 320
+      </a><br>
+      <a href="mailto:abokinana76@gmail.com" class="text-white text-decoration-none">
+        <i class="fas fa-envelope"></i> abokinana76&#64;gmail.com
+      </a>
+    </p>
+  </div>
+</footer>
+

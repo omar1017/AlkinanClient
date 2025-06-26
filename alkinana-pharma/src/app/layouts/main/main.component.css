@@ -1,0 +1,37 @@
+.container {
+    max-width: 2000px;
+  }
+  
+  input.form-control {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+  .table {
+    margin-top: 20px;
+  }
+  
+  .d-flex .btn {
+    min-width: 100px;
+  }
+  .btn-sm {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+  
+  .btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #000;
+  }
+  
+  .btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #e0a800;
+  }
+  
+  .d-flex.gap-2 {
+    gap: 8px; 
+  }
+ 

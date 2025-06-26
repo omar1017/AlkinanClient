@@ -1,0 +1,56 @@
+
+<div id="main">
+  <nav class="navbar bg-body-tertiary">
+    <div class="container-fluid px-5 py-1">
+      <div class="d-flex" role="search">
+          <app-filter
+           [options]="options" 
+           (filter)="loadProducts(pageNumber,pageSize,$event.text,$event.option)"
+          ></app-filter>
+      </div>
+      <button class="btn btn-dark" (click)="onLogout()">Logout</button>
+    </div>
+  </nav>
+  <div class="mt-5 p-5">
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">
+        Product List
+    </h2>
+    <hr class="mb-4">
+
+    <app-pagenation
+    [totalPages]="totalPages"
+    [pageNumber]="pageNumber"
+    (prevPage)="previousPage()"
+    (nextPage)="nextPage()"
+    ></app-pagenation>
+
+    <app-loading
+    [isLoading]="isLoading"
+    ></app-loading>
+
+
+    <app-table
+    [productForm]="productForm"
+    [isLoading]="isLoading"
+    [products]="products"
+    [errorMessage]="errorMessage"
+    (patchActive)="patchActive($event.index,$event.product)"
+    ></app-table>
+
+    <div class="d-flex justify-content-between mt-3">
+   <button type="button" class="btn btn-success" (click)="openAddPatientDialog()">
+      <i class="bi bi-plus-circle"></i> Add New Product
+    </button>
+    </div>
+
+    <app-pagenation
+    [totalPages]="totalPages"
+    [pageNumber]="pageNumber"
+    (prevPage)="previousPage()"
+    (nextPage)="nextPage()"
+    ></app-pagenation>
+
+</div>
+</div>
+</div>

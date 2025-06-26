@@ -1,0 +1,86 @@
+<div class="mb-4 h2 text-success">
+    Sign up
+</div>
+
+<div>
+    Already have account?
+    <a routerLink="/signin" class="text-decoration-none fw-medium text-success d-inlin-block" >Sign in</a>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!-- First Name -->
+    <div class="mb-3">
+        <input class="form-control bg-body-secondary" placeholder="First Name" formControlName="firstName">
+        <div class="error-feedback" *ngIf="hasDisplayableError('firstName') && form.controls['firstName'].hasError('required')">
+            First Name is required.
+        </div>
+    </div>
+
+    <!-- Last Name -->
+    <div class="mb-3">
+        <input class="form-control bg-body-secondary" placeholder="Last Name" formControlName="lastName">
+        <div class="error-feedback" *ngIf="hasDisplayableError('lastName') && form.controls['lastName'].hasError('required')">
+            Last Name is required.
+        </div>
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3">
+        <input class="form-control bg-body-secondary" placeholder="Email" formControlName="email">
+        <div class="error-feedback" *ngIf="hasDisplayableError('email')">
+            <div *ngIf="form.controls['email'].hasError('required')">
+                Email is required.
+            </div>
+            <div *ngIf="form.controls['email'].hasError('email')">
+                Please enter a valid email.
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Pharma Name -->
+    <div class="mb-3">
+        <input class="form-control bg-body-secondary" placeholder="Pharma Name" formControlName="pharmaName">
+        <div class="error-feedback" *ngIf="hasDisplayableError('pharmaName') && form.controls['pharmaName'].hasError('required')">
+            Pharma Name is required.
+        </div>
+    </div>
+
+    <!-- Address -->
+    <div class="mb-3">
+        <input class="form-control bg-body-secondary" placeholder="Address" formControlName="address">
+        <div class="error-feedback" *ngIf="hasDisplayableError('address') && form.controls['address'].hasError('required')">
+            Address is required.
+        </div>
+    </div>
+
+    <!-- Password -->
+    <!-- Password -->
+    <div class="mb-3">
+        <input class="form-control bg-body-secondary" placeholder="Password" type="password" formControlName="password">
+        <div class="error-feedback text-danger" *ngIf="hasDisplayableError('password')">
+            <div *ngIf="form.controls['password'].hasError('required')">
+                Password is required.
+            </div>
+            <div *ngIf="form.controls['password'].hasError('pattern')">
+                Password must be at least 8 characters, contain an uppercase letter, a number, and a special character.
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="mb-3">
+        <input class="form-control bg-body-secondary" placeholder="Confirm Password" type="password" formControlName="confirmPassword">
+        <div class="error-feedback" *ngIf="hasDisplayableError('confirmPassword') && form.controls['confirmPassword'].hasError('passwordMismatch')">
+            Passwords do not match.
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="mt-4">
+        <button type="submit" class="btn btn-success w-100 rounded-3" [disabled]="form.invalid">
+            Register
+        </button>
+    </div>
+</form>
+

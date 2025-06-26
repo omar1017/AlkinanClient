@@ -1,0 +1,57 @@
+<form [formGroup]="supplierForm" *ngIf="!isLoading">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr class="bg-dark text-white">
+          <th>Supplier Name</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody formArrayName="suppliers">
+        <ng-container *ngIf="suppliers.controls.length > 0; else noProducts">
+          <tr *ngFor="let supplier of suppliers.controls; let i = index" [formGroupName]="i">
+            <td>
+              <input type="text" class="form-control" formControlName="name" readonly />
+            </td>
+            
+            <td>
+              <input type="text" class="form-control" formControlName="firstName" readonly />
+            </td>
+            <td>
+              <input type="text" class="form-control" formControlName="lastName" readonly />
+            </td>
+            <td>
+              <input type="text" class="form-control" formControlName="email"  readonly/>
+            </td>
+            <td>
+                <input type="text" class="form-control" formControlName="address" readonly  />
+              </td>
+            
+            <td>
+                <div class="d-flex flex-row gap-2">
+                  
+                    
+                  <button type="button"  class="btn btn-danger btn-sm" (click)="deleteSupplier(i)">Delete</button>
+
+                  <button class="btn btn-light" (click)="activeSupplier(i)">
+                    <span *ngIf="!supplier.value.isActive">⬜</span>
+                    <span *ngIf="supplier.value.isActive">✔</span> <!-- تغيير إلى صح عند التلبية -->
+                  </button>
+                </div>
+               </td>
+             </tr>
+           </ng-container>
+         </tbody>
+ 
+         <ng-template #noProducts>
+           <tr>
+             <td colspan="6" class="text-center text-muted">
+               No suppliers found. Add new supplier using the button below.
+             </td>
+           </tr>
+         </ng-template>
+       </table>
+ </form>

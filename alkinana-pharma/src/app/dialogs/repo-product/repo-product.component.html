@@ -1,0 +1,71 @@
+<div class="modal-header bg-primary text-white">
+    <h5 class="modal-title">{{ isEdit ? 'Edit Product' : 'Add Product' }}</h5>
+    <button type="button" class="btn-close" (click)="bsModalRef.hide()"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="productForm">
+      <div class="row g-3">
+        <!-- Basic Information -->
+        <div class="col-md-6">
+          <label class="form-label">Product Name</label>
+          <input type="text" class="form-control" formControlName="name">
+          <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched" class="text-danger">
+            <div *ngIf="productForm.get('name')?.errors?.['required']">Name is required.</div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Sientific Name</label>
+          <input type="text" class="form-control" formControlName="sName">
+          <div *ngIf="productForm.get('sName')?.invalid && productForm.get('sName')?.touched" class="text-danger">
+            <div *ngIf="productForm.get('sName')?.errors?.['required']">Name is required.</div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Company Name</label>
+          <input type="text" class="form-control" formControlName="companyName">
+          <div *ngIf="productForm.get('companyName')?.invalid && productForm.get('companyName')?.touched" class="text-danger">
+            <div *ngIf="productForm.get('companyName')?.errors?.['required']">File Number is required.</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Description</label>
+          <input type="text" class="form-control" formControlName="description">
+          <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched" class="text-danger">
+            <div *ngIf="productForm.get('description')?.errors?.['required']">Description is required.</div>
+            
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <label class="form-label">Price</label>
+          <input type="number" class="form-control" formControlName="price"/>
+          <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched" class="text-danger">
+            <div *ngIf="productForm.get('price')?.errors?.['required']">Price is required.</div>
+          </div>
+        </div>
+    </div> 
+    
+    <div class="col-md-12">
+        <label class="form-label">Notes</label>
+        <textarea class="form-control" formControlName="notes" rows="4" placeholder="Enter your notes here..."></textarea>
+      </div>
+      
+      <div class="col-md-12">
+        <label class="form-label">Upload Image</label>
+        <input type="file" class="form-control" (change)="onFileSelected($event)" formControlName="image">
+        <div *ngIf="selectedImage" class="mt-2">
+          <img [src]="selectedImage" class="img-thumbnail" alt="Selected Image" width="500">
+        </div>
+      </div>
+   
+    </form>
+  </div>
+ 
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="bsModalRef.hide()">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="saveProduct()" [disabled]="productForm.invalid">
+      {{ isEdit ? 'Update' : 'Save' }}
+    </button>
+  </div>

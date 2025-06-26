@@ -1,0 +1,17 @@
+<div class="d-flex justify-content-between align-items-center mt-3">
+    <button 
+      class="btn btn-outline-primary" 
+      [disabled]="pageNumber === 1" 
+      (click)="onPrev()">
+      <i class="fas fa-chevron-left"></i> Previous
+    </button>
+  
+    <span class="fw-bold">Page {{ pageNumber }} of {{ totalPages }}</span>
+  
+    <button 
+      class="btn btn-outline-primary" 
+      [disabled]="pageNumber === totalPages" 
+      (click)="onNext()">
+      Next <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>

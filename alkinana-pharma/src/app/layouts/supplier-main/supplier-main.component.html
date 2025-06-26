@@ -1,0 +1,48 @@
+
+<div id="main">
+  <nav class="navbar bg-body-tertiary">
+    <div class="container-fluid px-5 py-1">
+      <div class="d-flex" role="search">
+          <app-filter 
+          [options]="options"
+          (filter)="loadSuppliers(pageNumber, pageSize, $event.text, $event.option)"
+          ></app-filter>
+      </div>
+      <button class="btn btn-dark" (click)="onLogout()">Logout</button>
+    </div>
+  </nav>
+  <div class="mt-5 p-5">
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">
+        Supplier List
+    </h2>
+    <hr class="mb-4">
+
+    
+
+    <app-loading
+    [isLoading]="isLoading"
+    ></app-loading>
+
+
+    <app-table-supplier
+    [supplierForm]="supplierForm"
+    [isLoading]="isLoading"
+    [suppliers]="suppliers"
+    [errorMessage]="errorMessage"
+    (patchActive)="patchActive($event.index,$event.supplier)"
+    ></app-table-supplier>
+
+   
+
+    <app-pagenation
+    [totalPages]="totalPages"
+    [pageNumber]="pageNumber"
+    (prevPage)="previousPage()"
+    (nextPage)="nextPage()"
+    ></app-pagenation>
+
+</div>
+</div>
+</div>

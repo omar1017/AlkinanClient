@@ -1,0 +1,92 @@
+<div class="container py-5"  style="min-height: 100vh; background: linear-gradient(120deg, #f0f9ff, #cfe6f5);">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+  
+        <!-- بطاقة سلة التسوق -->
+        <div class="card border-0 shadow-lg mb-4" style="border-radius: 20px;">
+  
+          <!-- رأس البطاقة -->
+          <div class="card-header py-4"
+               style="background: linear-gradient(45deg, #00c6ff, #0072ff);
+                      border-top-left-radius: 20px; 
+                      border-top-right-radius: 20px;">
+            <h2 class="mb-0 text-center text-white">
+              <i class="bi bi-cart-check me-2"></i> سلة التسوق
+            </h2>
+          </div>
+  
+          <!-- محتوى البطاقة في حال كانت السلة فارغة -->
+          <div class="card-body p-4" *ngIf="cartItems.length === 0">
+            <div class="alert alert-info text-center mb-0">
+              السلة فارغة حالياً، قم بإضافة منتجات!
+            </div>
+          </div>
+  
+          <!-- محتوى البطاقة في حال وجود منتجات -->
+          <div class="card-body p-4" *ngIf="cartItems.length > 0">
+            <div class="list-group list-group-flush">
+  
+              <!-- تكرار المنتجات -->
+              <div
+                class="list-group-item d-flex flex-column flex-md-row align-items-center gap-3 py-3"
+                *ngFor="let item of cartItems"
+                style="border: none;"
+              >
+                <!-- صورة المنتج -->
+                <div class="text-center">
+                  <img
+                    [src]="item.productImage.url"
+                    class="rounded shadow-sm"
+                    style="width: 80px; height: 80px; object-fit: cover;"
+                    [alt]="item.name"
+                  >
+                </div>
+  
+                <!-- تفاصيل المنتج -->
+                <div class="flex-fill">
+                  <h5 class="mb-1 fw-bold">{{ item.name }}</h5>
+                  <p class="text-muted small mb-1">{{ item.companyName }}</p>
+                  <p class="text-secondary mb-1">{{ item.description }}</p>
+                  <p class="text-secondary mb-1">${{ item.publicPrice }}</p>
+                </div>
+  
+                <!-- التحكم بالكمية والحذف -->
+                <div class="d-flex flex-column align-items-center">
+                  <!-- أزرار زيادة/نقصان الكمية -->
+                  <div class="input-group input-group-sm mb-2" style="max-width: 120px;">
+                    <button class="btn btn-outline-secondary" (click)="updateQuantity(item, -1)">-</button>
+                    <input
+                      type="number"
+                      class="form-control text-center"
+                      [(ngModel)]="item.quantity"
+                    >
+                    <button class="btn btn-outline-secondary" (click)="updateQuantity(item, 1)">+</button>
+                  </div>
+                  <!-- زر الحذف -->
+                  <button class="btn btn-danger btn-sm w-100" (click)="removeItem(item.productId.value)">
+                    <i class="bi bi-trash3"></i> حذف
+                  </button>
+                </div>
+              </div>
+  
+            </div>
+          </div>
+  
+          <!-- تذييل البطاقة: المجموع الكلي وزر التأكيد -->
+          <div class="card-footer bg-white border-0 p-4"
+               *ngIf="cartItems.length > 0"
+               style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+            <div class="d-flex justify-content-between align-items-center">
+              ${{getTotal()}}
+              <button class="btn btn-success btn-lg" (click)="checkout()">
+                <i class="bi bi-check-circle"></i>
+                تأكيد الطلبية
+              </button>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  
